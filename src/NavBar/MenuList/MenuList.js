@@ -28,15 +28,28 @@ export default class MenuList extends Component {
 
             <Menu
                anchorEl={this.state.anchorEl}
+               anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left'
+               }}
+               transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'center',
+               }}
+               getContentAnchorEl={null}
                open={open}
                onClose={this.handleClose}
             >
                <MenuItem selected={true} onClick={this.handleClose}>
-                  BLAH
+                  View Datasets
                </MenuItem>
 
                <MenuItem selected={false} onClick={this.handleClose}>
-                  BLAH2
+                  Upload Dataset
+               </MenuItem>
+
+               <MenuItem selected={false} onClick={this.handleClose}>
+                  Classify Dataset
                </MenuItem>
             </Menu>
          </>

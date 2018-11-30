@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import NavBar from '../NavBar/NavBar';
+import Table from '../Table/Table';
 
 class App extends Component {
    render() {
@@ -10,7 +11,8 @@ class App extends Component {
          <div className="App">
             <NavBar />
             <div className="App-body">
-               
+               <h2>View Dataset</h2>
+               <Table />
             </div>
          </div>
       );
