@@ -51,7 +51,8 @@ if (env.stringified['process.env'].NODE_ENV !== '"production"') {
 const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
-const cssRegex = /\.css$/;
+// const cssRegex = /\.css$/;
+const cssRegex = /\.(?:sa|sc|c)ss$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -69,6 +70,12 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
     {
       loader: require.resolve('css-loader'),
       options: cssOptions,
+    },
+    {
+      loader: require.resolve('sass-loader'),
+      options: {
+        importLoaders: 1,
+      },
     },
     {
       // Options for PostCSS as we reference these options twice
