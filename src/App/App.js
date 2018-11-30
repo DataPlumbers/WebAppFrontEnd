@@ -7,6 +7,8 @@ import Home from '../Home/Home';
 import Login from '../Users/Login';
 import Signup from '../Users/Signup';
 import SetList from '../SetList/SetList';
+import Upload from '../Upload/Upload';
+import Classify from '../Classify/Classify';
 
 class App extends Component {
    render() {
@@ -21,6 +23,8 @@ class App extends Component {
                      <Route path="/login" component={Login} />
                      <Route path="/signup" component={Signup} />
                      <Route path="/datasets" component={SetList} />
+                     <Route path="/upload" component={Upload} />
+                     <Route path="/classify" component={Classify} />
                   </div>
                </>
             </Router>
