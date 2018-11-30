@@ -3,6 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import { Link } from 'react-router-dom';
 
 export default class MenuList extends Component {
    state = {
@@ -13,12 +14,17 @@ export default class MenuList extends Component {
       this.setState({ anchorEl: event.currentTarget });
    };
 
-   handleClose = () => {
+   handleClose = (path) => {
       this.setState({ anchorEl: null });
    };
 
    render() {
       const open = Boolean(this.state.anchorEl);
+      const links = [
+         {title: "View Datasets", url: "datasets"},
+         {title: "Upload Datasets", url: "upload-sets"},
+         {title: "Classify Datasets", url: "classify"}
+      ]
       
       return (
          <>
@@ -40,17 +46,13 @@ export default class MenuList extends Component {
                open={open}
                onClose={this.handleClose}
             >
-               <MenuItem selected={true} onClick={this.handleClose}>
-                  View Datasets
-               </MenuItem>
-
-               <MenuItem selected={false} onClick={this.handleClose}>
-                  Upload Dataset
-               </MenuItem>
-
-               <MenuItem selected={false} onClick={this.handleClose}>
-                  Classify Dataset
-               </MenuItem>
+               {links.map(link => {
+                  return (
+                     <MenuItem key={link.url} selected={false} onClick={this.handleClose} component={props => <Link to={`/${link.url}`} {...props} />}>
+                        {link.title}
+                     </MenuItem>
+                  );
+               })}
             </Menu>
          </>
       );
