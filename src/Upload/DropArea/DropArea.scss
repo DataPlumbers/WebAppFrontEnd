@@ -1,0 +1,13 @@
+.droparea.container {
+
+    width: 100%;
+    min-width: 400px;
+    min-height: 400px;
+    border: 2px solid white;
+    display: flex;
+
+    input.file-input {
+        cursor: pointer;
+        flex: 1;
+    }
+}
