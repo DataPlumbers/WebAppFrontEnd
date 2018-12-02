@@ -23,7 +23,7 @@ class DropArea extends React.Component {
       return (
          <div className="droparea container">
             <input className="file-input" type="file" multiple onChange={this.handleChange}/>
-            <div class="upload-icon container">
+            <div className="upload-icon container">
                <Icon className="icon" fontSize="large">cloud_upload</Icon>
                <h3>Select dataset files to upload</h3>
             </div>
