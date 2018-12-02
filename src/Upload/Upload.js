@@ -1,14 +1,25 @@
 import React, { Component } from 'react';
+import DropArea from './DropArea/DropArea'
 
 import './Upload.scss';
 
 export default class Upload extends Component {
    state = {
-      selectedFile: null
+      selectedFile: null,
+      files: []
    };
 
    handleChange = event => {
       this.setState({selectedFile: event.target.files[0]});
+   }
+
+   handleDrop = files => {
+      console.log("Before setState", files);
+      this.setState({files: files});
+   }
+
+   componentDidUpdate() {
+      console.log("After setState", this.state.files);
    }
 
    renderFileContents = () => {
@@ -25,8 +36,7 @@ export default class Upload extends Component {
    render() {
       return (
          <div className="upload-body">
-            UPLOAD DATASET
-            <input type="file" onChange={this.handleChange}/>
+            <DropArea onDrop={this.handleDrop}/>
 
             {this.state.selectedFile != null ? this.renderFileContents() : null}
          </div>
