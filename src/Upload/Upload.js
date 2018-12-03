@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import DropArea from './DropArea/DropArea'
+import FilesList from './FilesList/FilesList'
 
 import './Upload.scss';
 
@@ -14,12 +15,7 @@ export default class Upload extends Component {
    }
 
    handleDrop = files => {
-      console.log("Before setState", files);
       this.setState({files: files});
-   }
-
-   componentDidUpdate() {
-      console.log("After setState", this.state.files);
    }
 
    renderFileContents = () => {
@@ -35,11 +31,16 @@ export default class Upload extends Component {
 
    render() {
       return (
-         <div className="upload-body">
-            <DropArea onDrop={this.handleDrop}/>
+         <>
+            <div className="upload-body">
+               <DropArea onDrop={this.handleDrop} />
 
-            {this.state.selectedFile != null ? this.renderFileContents() : null}
-         </div>
+               {this.state.selectedFile != null ? this.renderFileContents() : null}
+            </div>
+            <div className="files-list-body blah">
+               <FilesList files={this.state.files} />
+            </div>
+         </>
       );
    }
 }
