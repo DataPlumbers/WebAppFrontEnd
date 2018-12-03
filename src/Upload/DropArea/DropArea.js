@@ -1,22 +1,10 @@
 import React from 'react';
 import Icon from '@material-ui/core/Icon';
-import './DropArea.scss';
 
 class DropArea extends React.Component {
-   state = {
-      files: []
-   }
 
    handleChange = event => {
-      this.setState({files: event.target.files});
-      
-      //console.log("Event files", event.target.files);
-
       this.props.onDrop(event.target.files);
-   }
-
-   componentDidUpdate() {
-      //console.log("DropArea files", this.state.files);
    }
 
    render() {
