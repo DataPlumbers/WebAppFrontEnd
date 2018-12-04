@@ -42,38 +42,38 @@ export default class Classify extends Component {
    render() {
       return (
          <>
-         <h3>Dataset Category</h3>
-         <div className="classify body">
-            <div>
-               <TextField
-                  id="classification-category"
-                  name="category"
-                  label="Category"
-                  value={this.state.category}
-                  onChange={this.handleChange}
-                  type="search"
-                  autoFocus={true}
-                  required={true}
-                  margin="normal"
-               />
+            <h3>Dataset Category</h3>
+            <div className="classify-body">
+               <div>
+                  <TextField
+                     id="classification-category"
+                     name="category"
+                     label="Category"
+                     value={this.state.category}
+                     onChange={this.handleChange}
+                     type="search"
+                     autoFocus={true}
+                     required={true}
+                     margin="normal"
+                  />
+               </div>
+               <div>
+                  <TextField
+                     id="category-property"
+                     name="property"
+                     label="Property"
+                     value={this.state.property}
+                     onChange={this.handleChange}
+                     margin="normal"
+                  />
+                  <IconButton onClick={this.addProperty} aria-label="Add">
+                     <Add />
+                  </IconButton>
+               </div>
+               <div>
+                  <PropertiesList onChange={this.handPropertiesListChange} properties={this.state.properties} />
+               </div>
             </div>
-            <div>
-               <TextField
-                  id="category-property"
-                  name="property"
-                  label="Property"
-                  value={this.state.property}
-                  onChange={this.handleChange}
-                  margin="normal"
-               />
-               <IconButton onClick={this.addProperty} aria-label="Add">
-                  <Add />
-               </IconButton>
-            </div>
-            <div>
-               <PropertiesList onChange={this.handPropertiesListChange} properties={this.state.properties} />
-            </div>
-         </div>
          </>
       );
    }

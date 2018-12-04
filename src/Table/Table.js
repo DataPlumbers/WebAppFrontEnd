@@ -48,6 +48,28 @@ const data = [
          abbreviation: "LAC"
       }
    },
+   {
+      id: 6124,
+      firstName: "Tom",
+      lastName: "Brady",
+      primaryPosition: "QB",
+      jerseyNumber: 12,
+      currentTeam: {
+         id: 63,
+         abbreviation: "NE"
+      }
+   },
+   {
+      id: 5128,
+      firstName: "Melvin",
+      lastName: "Gordon",
+      primaryPosition: "RB",
+      jerseyNumber: 28,
+      currentTeam: {
+         id: 63,
+         abbreviation: "LAC"
+      }
+   },
 ]
 
 const columns = [{
