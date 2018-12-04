@@ -30,6 +30,10 @@ class Classify extends React.Component {
       this.setState({properties: newPropertiesList});
    }
 
+   handleCategoryTextFieldChange = event => {
+      this.setState({category: event.target.value});
+   }
+
    handlePropertyTextFieldChange = event => {
       this.setState({property: event.target.value});
    }
@@ -44,8 +48,10 @@ class Classify extends React.Component {
                   id="classification-category"
                   label="Category"
                   value={this.state.category}
+                  onChange={this.handleCategoryTextFieldChange}
                   type="search"
                   autoFocus={true}
+                  required={true}
                   margin="normal"
                />
             </div>
