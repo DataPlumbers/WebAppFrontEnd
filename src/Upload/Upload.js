@@ -32,6 +32,7 @@ export default class Upload extends Component {
    render() {
       return (
          <>
+            <h3>Upload Datasets</h3>
             <div className="upload-body">
                <DropArea onDrop={this.handleDrop} />
 
