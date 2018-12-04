@@ -1,7 +1,7 @@
 import React from 'react';
 import { CircularProgress, TableCell, TableRow } from '@material-ui/core';
 
-class FileItem extends React.Component {
+export default class FileItem extends React.Component {
 
    render() {
       return (
@@ -26,5 +26,3 @@ class FileItem extends React.Component {
       );
    }
 }
-
-export default FileItem;
