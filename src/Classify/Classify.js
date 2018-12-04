@@ -36,8 +36,9 @@ class Classify extends React.Component {
 
    render() {
       return (
+         <>
+         <h3>Dataset Category</h3>
          <div className="classify body">
-            <h3>Data Category</h3>
             <div>
                <TextField
                   id="classification-category"
@@ -64,6 +65,7 @@ class Classify extends React.Component {
                <PropertiesList onChange={this.handPropertiesListChange} properties={this.state.properties} />
             </div>
          </div>
+         </>
       );
    }
 }
