@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { IconButton, TextField } from '@material-ui/core/';
 import { Add } from '@material-ui/icons/';
 import PropertiesList from './PropertiesList';
 
 import './Classify.scss';
 
-class Classify extends React.Component {
-   state = {
-      category: "",
-      property: "",
-      properties: []
+export default class Classify extends Component {
+
+   constructor() {
+      super();
+      this.state = {
+         category: "",
+         property: "",
+         properties: []
+      }
+      this.handleChange = this.handleChange.bind(this);
    }
 
    addProperty = () => {
@@ -30,12 +35,8 @@ class Classify extends React.Component {
       this.setState({properties: newPropertiesList});
    }
 
-   handleCategoryTextFieldChange = event => {
-      this.setState({category: event.target.value});
-   }
-
-   handlePropertyTextFieldChange = event => {
-      this.setState({property: event.target.value});
+   handleChange(event) {
+      this.setState({ [event.target.name]: event.target.value });
    }
 
    render() {
@@ -46,9 +47,10 @@ class Classify extends React.Component {
             <div>
                <TextField
                   id="classification-category"
+                  name="category"
                   label="Category"
                   value={this.state.category}
-                  onChange={this.handleCategoryTextFieldChange}
+                  onChange={this.handleChange}
                   type="search"
                   autoFocus={true}
                   required={true}
@@ -57,10 +59,11 @@ class Classify extends React.Component {
             </div>
             <div>
                <TextField
-                  id="classification-property"
+                  id="category-property"
+                  name="property"
                   label="Property"
                   value={this.state.property}
-                  onChange={this.handlePropertyTextFieldChange}
+                  onChange={this.handleChange}
                   margin="normal"
                />
                <IconButton onClick={this.addProperty} aria-label="Add">
@@ -75,5 +78,3 @@ class Classify extends React.Component {
       );
    }
 }
-
-export default Classify;

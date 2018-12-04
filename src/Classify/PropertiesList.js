@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Icon from '@material-ui/core/Icon';
 
-class PropertiesList extends React.Component {
+export default class PropertiesList extends Component {
 
    removeProperty = (property) => {
       this.props.onChange(property);
@@ -17,5 +17,3 @@ class PropertiesList extends React.Component {
       );
    }
 }
-
-export default PropertiesList;
