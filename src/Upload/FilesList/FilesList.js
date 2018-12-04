@@ -2,7 +2,9 @@ import React from 'react';
 import { Paper, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
 import FileItem from './FileItem'
 
-class FilesList extends React.Component {
+const labels = ["Filename", "Size", "Type", "Upload Progress"];
+
+export default class FilesList extends React.Component {
 
    renderFileItems() {
       let files = Array.from(this.props.files);
@@ -14,16 +16,23 @@ class FilesList extends React.Component {
       });
    }
 
+   renderCells = (labels) => {
+      return (
+         <>
+            {labels.map(label => {
+               return <TableCell key={label}>{label}</TableCell>
+            })}
+         </>
+      );
+   }
+
    render() {
       return (
          <Paper className="files-list">
                <Table>
                   <TableHead>
                      <TableRow>
-                           <TableCell>Filename</TableCell>
-                           <TableCell>Size</TableCell>
-                           <TableCell>Type</TableCell>
-                           <TableCell>Upload Progress</TableCell>
+                           {this.renderCells(labels)}
                      </TableRow>
                   </TableHead>
                   <TableBody>
@@ -34,5 +43,3 @@ class FilesList extends React.Component {
       );
    }
 }
-
-export default FilesList;
