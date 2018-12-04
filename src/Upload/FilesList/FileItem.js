@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { CircularProgress, TableCell, TableRow } from '@material-ui/core';
 
-export default class FileItem extends React.Component {
+export default class FileItem extends Component {
 
    render() {
       return (

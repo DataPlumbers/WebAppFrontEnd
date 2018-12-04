@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Paper, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
 import FileItem from './FileItem'
 
 const labels = ["Filename", "Size", "Type", "Upload Progress"];
 
-export default class FilesList extends React.Component {
+export default class FilesList extends Component {
 
    renderFileItems() {
       let files = Array.from(this.props.files);

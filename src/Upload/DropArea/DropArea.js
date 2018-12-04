@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Icon from '@material-ui/core/Icon';
 
-class DropArea extends React.Component {
+export default class DropArea extends Component {
 
    handleChange = event => {
       this.props.onDrop(event.target.files);
@@ -19,5 +19,3 @@ class DropArea extends React.Component {
       );
    }
 }
-
-export default DropArea;
