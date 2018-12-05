@@ -20,6 +20,17 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+
+  .content-body {
+    background-color: #fff !important;
+    color: black !important;
+    min-width: 60vw;
+    padding: 25px;
+    border-radius: 5px;
+    -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  }
 }
 
 .App-link {

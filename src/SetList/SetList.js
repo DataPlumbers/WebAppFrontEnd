@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const SetList = props => {
-   return (
-      <div>LIST OF DATASETS</div>
-   );
+
+export default class SetList extends Component {
+   render() {
+      return (
+         <>
+            <div>LIST OF DATASETS</div>
+            <div className="setlist content-body">
+               
+            </div>
+         </>
+      );
+   }
 }
-
-export default SetList;

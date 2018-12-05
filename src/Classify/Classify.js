@@ -43,7 +43,7 @@ export default class Classify extends Component {
       return (
          <>
             <h3>Dataset Category</h3>
-            <div className="classify-body">
+            <div className="classify content-body">
                <div>
                   <TextField
                      id="classification-category"

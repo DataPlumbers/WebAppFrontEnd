@@ -1,11 +1,6 @@
-.classify-body {
-   background-color: #fff !important;
-   color: black !important;
-   min-width: 60vw;
-   text-align: left;
-   padding: 25px;
-   border-radius: 5px;
-   -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-   -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
-   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+.classify {
+   
+   &.content-body {
+      text-align: left;
+   }
 }

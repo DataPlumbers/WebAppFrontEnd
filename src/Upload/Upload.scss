@@ -1,7 +1,10 @@
 // Upload scss
-.upload-body {
-   width: 40vw;
-   min-width: 600px;
+.upload {
+
+   &.content-body {
+      width: 40vw;
+      min-width: 600px;
+   }
 }
 
 .files-list-body {

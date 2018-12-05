@@ -33,7 +33,7 @@ export default class Upload extends Component {
       return (
          <>
             <h3>Upload Datasets</h3>
-            <div className="upload-body">
+            <div className="upload content-body">
                <DropArea onDrop={this.handleDrop} />
 
                {this.state.selectedFile != null ? this.renderFileContents() : null}
