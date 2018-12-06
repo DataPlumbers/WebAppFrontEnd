@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { IconButton, TextField } from '@material-ui/core/';
+import { IconButton, TextField, FormGroup } from '@material-ui/core/';
 import { Add } from '@material-ui/icons/';
 import PropertiesList from './PropertiesList';
 
@@ -44,35 +44,37 @@ export default class Classify extends Component {
          <>
             <h3>Dataset Category</h3>
             <div className="classify content-body">
-               <div>
-                  <TextField
-                     id="classification-category"
-                     name="category"
-                     label="Category"
-                     value={this.state.category}
-                     onChange={this.handleChange}
-                     type="search"
-                     autoFocus={true}
-                     required={true}
-                     margin="normal"
-                  />
-               </div>
-               <div>
-                  <TextField
-                     id="category-property"
-                     name="property"
-                     label="Property"
-                     value={this.state.property}
-                     onChange={this.handleChange}
-                     margin="normal"
-                  />
-                  <IconButton onClick={this.addProperty} aria-label="Add">
-                     <Add />
-                  </IconButton>
-               </div>
-               <div>
-                  <PropertiesList onChange={this.handPropertiesListChange} properties={this.state.properties} />
-               </div>
+               <FormGroup>
+                  <FormGroup row={true}>
+                     <TextField
+                        id="classification-category"
+                        name="category"
+                        label="Category"
+                        value={this.state.category}
+                        onChange={this.handleChange}
+                        type="search"
+                        autoFocus={true}
+                        required={true}
+                        margin="normal"
+                     />
+                  </FormGroup>
+                  <FormGroup row={true}>
+                     <TextField
+                        id="category-property"
+                        name="property"
+                        label="Property"
+                        value={this.state.property}
+                        onChange={this.handleChange}
+                        margin="normal"
+                     />
+                     <IconButton onClick={this.addProperty} aria-label="Add">
+                        <Add />
+                     </IconButton>
+                  </FormGroup>
+                  <div className="properties-container">
+                     <PropertiesList onChange={this.handPropertiesListChange} properties={this.state.properties} />
+                  </div>
+               </FormGroup>
             </div>
          </>
       );
