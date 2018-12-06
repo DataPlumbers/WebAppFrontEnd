@@ -46,7 +46,7 @@ export default class SetDetail extends Component {
          <>
             <h3>Dataset Detail</h3>
             <div className="setdetail content-body">
-               <Typography className="category-header" align={'left'} gutterBottom={true} variant="h6">Reviews</Typography>
+               <Typography className="category-header" align={'left'} variant="h6">Reviews</Typography>
                <Paper>
                   <Table>
                      <TableHead> 
