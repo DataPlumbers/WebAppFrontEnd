@@ -13,13 +13,15 @@ export default class PropertiesList extends Component {
       return (
          <>
             {this.props.properties.map(property => {
-               return (<Chip
-                  className="property-item"
-                  key={property}
-                  label={property}
-                  onDelete={() => this.removeProperty(property)}
-                  variant="outlined"
-               />);
+               return (
+                  <Chip
+                     className="property-item"
+                     key={property}
+                     label={property}
+                     onDelete={() => this.removeProperty(property)}
+                     variant="outlined"
+                  />
+               );
             })}
          </>
       );
