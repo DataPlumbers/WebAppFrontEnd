@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import Icon from '@material-ui/core/Icon';
+import Chip from '@material-ui/core/Chip';
+
+import './Classify.scss';
 
 export default class PropertiesList extends Component {
 
-   removeProperty = (property) => {
+   removeProperty = property => {
       this.props.onChange(property);
    }
 
@@ -11,7 +13,15 @@ export default class PropertiesList extends Component {
       return (
          <>
             {this.props.properties.map(property => {
-               return <span key={property}>{property} <Icon onClick={() => this.removeProperty(property)}>remove_circle</Icon> </span>
+               return (
+                  <Chip
+                     className="property-item"
+                     key={property}
+                     label={property}
+                     onDelete={() => this.removeProperty(property)}
+                     variant="outlined"
+                  />
+               );
             })}
          </>
       );
