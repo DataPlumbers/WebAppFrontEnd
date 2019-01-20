@@ -20,18 +20,27 @@ const styles = {
    },
  };
 
-const NavBar = (props) => {
+ 
+ const NavBar = (props) => {
    const { classes } = props;
+   
+   const logout = () => {
+      window.localStorage.removeItem('loggedInUser');
+   }
 
    return (
       <div>
          <AppBar position="static">
             <Toolbar>
                <MenuList buttonClass={classes.menuButton} />
-               <Typography variant="h6" color="inherit" style={{textDecoration: "none"}} className={classes.grow} component={props => <Link to="/" {...props}/>}>
+               <Typography variant="headline" color="inherit" style={{textDecoration: "none"}} className={classes.grow} component={props => <Link to="/" {...props}/>}>
                   Data Classifier
                </Typography>
-               <Button component={props => <Link to="/login" {...props}/>} color="inherit">Login</Button>
+               {window.localStorage.getItem('loggedInUser') === null ?
+                  <Button component={props => <Link to="/login" {...props}/>} color="inherit">Login</Button>
+                  :
+                  <Button component={props => <Link to="/" {...props}/>} onClick={logout} color="inherit">Logout</Button>
+               }
             </Toolbar>
          </AppBar>
       </div>
