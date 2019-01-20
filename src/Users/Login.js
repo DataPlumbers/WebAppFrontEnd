@@ -21,7 +21,7 @@ export default class Login extends Component {
     };
 
    authenticate = () => {
-      let url = 'http://localhost:4000/users/auth';
+      let url = 'https://capstone-plumbers-api.herokuapp.com/users/auth';
 
       Axios.post(url, {
          email: this.state.email,

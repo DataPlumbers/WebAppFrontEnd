@@ -22,7 +22,7 @@ export default class Signup extends Component {
     };
 
    register = () => {
-      let url = 'http://localhost:4000/users/signup';
+      let url = 'https://capstone-plumbers-api.herokuapp.com/users/signup';
 
       Axios.post(url, {
          email: this.state.email,
