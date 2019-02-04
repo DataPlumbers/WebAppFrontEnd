@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import DropArea from './DropArea/DropArea'
-import FilesList from './FilesList/FilesList'
+import axios from 'axios';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import DropArea from './DropArea/DropArea';
+import FilesList from './FilesList/FilesList';
 
 import './Upload.scss';
 
@@ -10,36 +13,56 @@ export default class Upload extends Component {
       files: []
    };
 
-   handleChange = event => {
-      this.setState({selectedFile: event.target.files[0]});
+   handleDrop = files => {
+      const newFiles = Array.from(files);
+      let currentFiles = this.state.files;
+
+      currentFiles = currentFiles.concat(newFiles);
+      this.setState({files: currentFiles});
    }
 
-   handleDrop = files => {
+   componentDidUpdate() {
+      console.log(this.state.files);
+   }
+
+   removeFile = (index) => {
+      let files = [...this.state.files];
+      files.splice(index, 1);
       this.setState({files: files});
    }
 
-   renderFileContents = () => {
-      let reader = new FileReader();
+   removeAllFiles() {
+      this.setState({files: []});
+   }
 
-      reader.onload = () => {
-         let text = reader.result;
-         console.log(text);
-      }
+   uploadFiles = () => {
+      const url = "http://127.0.0.1:8000/upload";
+      const data = new FormData();
+      
+      this.state.files.forEach(file => {
+         data.append('file', file);
+      });
 
-      reader.readAsText(this.state.selectedFile);
+      axios.post(url, data).then(response => {
+         console.log(response);
+         this.removeAllFiles();
+      });
    }
 
    render() {
       return (
          <>
-            <h3>Upload Datasets</h3>
+            <Grid justify="space-around" alignContent="center" alignItems="center" direction="row" container={true}>
+               <h3>Upload Datasets</h3>
+               <Button variant="contained" color="primary" onClick={this.uploadFiles}>
+                  Next
+               </Button>
+            </Grid>
             <div className="upload content-body">
                <DropArea onDrop={this.handleDrop} />
-
-               {this.state.selectedFile != null ? this.renderFileContents() : null}
             </div>
-            <div className="files-list-body blah">
-               <FilesList files={this.state.files} />
+            <div className="files-list-body content-body">
+               <FilesList files={this.state.files} uploadFile={this.uploadFile} handleRemoveFile={this.removeFile} />
             </div>
          </>
       );
