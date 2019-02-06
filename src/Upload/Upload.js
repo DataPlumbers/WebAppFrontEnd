@@ -7,6 +7,9 @@ import FilesList from './FilesList/FilesList';
 
 import './Upload.scss';
 
+const ONE_MB_IN_BYTES = 1048576; // 1 MB in bytes
+const MAX_FILE_SIZE = ONE_MB_IN_BYTES * 10; // 10 MB
+
 export default class Upload extends Component {
    state = {
       selectedFile: null,
@@ -15,17 +18,26 @@ export default class Upload extends Component {
 
    handleDrop = files => {
       const newFiles = Array.from(files);
+      const filteredNewFiles = [...this.filterByFileSize(newFiles, MAX_FILE_SIZE)];
       let currentFiles = this.state.files;
 
-      currentFiles = currentFiles.concat(newFiles);
+      currentFiles = currentFiles.concat(filteredNewFiles);
       this.setState({files: currentFiles});
+   }
+
+   filterByFileSize = (files, maxSize) => {
+      return files.filter(file => (file.size <= maxSize));
+   }
+
+   isFilesListEmpty = () => {
+      return this.state.files.length === 0;
    }
 
    componentDidUpdate() {
       console.log(this.state.files);
    }
 
-   removeFile = (index) => {
+   removeFile = index => {
       let files = [...this.state.files];
       files.splice(index, 1);
       this.setState({files: files});
@@ -54,7 +66,7 @@ export default class Upload extends Component {
          <>
             <Grid justify="space-around" alignContent="center" alignItems="center" direction="row" container={true}>
                <h3>Upload Datasets</h3>
-               <Button variant="contained" color="primary" onClick={this.uploadFiles}>
+               <Button variant="contained" color="default" onClick={this.uploadFiles} disabled={this.isFilesListEmpty()}>
                   Next
                </Button>
             </Grid>

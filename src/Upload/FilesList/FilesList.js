@@ -31,8 +31,8 @@ export default class FilesList extends Component {
          <Paper className="files-list">
                <Table>
                   <colgroup>
-                     <col style={{width:'60%'}}/>
-                     <col style={{width:'15%'}}/>
+                     <col style={{width:'55%'}}/>
+                     <col style={{width:'20%'}}/>
                      <col style={{width:'20%'}}/>
                      <col style={{width:'5%'}}/>
                   </colgroup>   

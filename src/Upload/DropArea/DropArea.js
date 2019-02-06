@@ -10,7 +10,7 @@ export default class DropArea extends Component {
    render() {
       return (
          <div className="droparea container">
-            <input className="file-input" type="file" multiple onChange={this.handleChange}/>
+            <input className="file-input" type="file" multiple onChange={this.handleChange} accept=".csv" />
             <div className="upload-icon container">
                <Icon className="icon" fontSize="large">cloud_upload</Icon>
                <h3>Select dataset files to upload</h3>
