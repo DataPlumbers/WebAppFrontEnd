@@ -28,12 +28,10 @@ export default class Signup extends Component {
          email: this.state.email,
          password: this.state.password
       }).then(res => {
-         console.log(res);
          this.openModal(1, "", () => {
             this.props.history.push('/login');
          });
       }).catch(err => {
-         console.log(err.response);
          this.openModal(0, err.response.data.message, this.closeModal);
       })
    }

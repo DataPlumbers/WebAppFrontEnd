@@ -27,7 +27,6 @@ export default class Login extends Component {
          email: this.state.email,
          password: this.state.password
       }).then(res => {
-         console.log(res);
          window.localStorage.setItem('loggedInUser', JSON.stringify({
             email: res.data.data.email,
             token: res.data.data.token
@@ -36,7 +35,6 @@ export default class Login extends Component {
             this.props.history.push('/');
          });
       }).catch(err => {
-         console.log(err.response);
          this.openModal(0, err.response.data.message, this.closeModal);
       })
    }
@@ -64,7 +62,7 @@ export default class Login extends Component {
                <form className="form-container" noValidate autoComplete="off">
                   <div className="text-fields">
                      <TextField
-                        label="User Name"
+                        label="Email"
                         className="text-field"
                         value={this.state.email}
                         onChange={this.handleChange('email')}
