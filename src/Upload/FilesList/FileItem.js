@@ -4,7 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 export default class FileItem extends Component {
-
    state = {
       index: null,
       name: "",

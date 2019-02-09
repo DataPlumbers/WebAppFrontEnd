@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+import Axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import DropArea from './DropArea/DropArea';
@@ -33,10 +33,6 @@ export default class Upload extends Component {
       return this.state.files.length === 0;
    }
 
-   componentDidUpdate() {
-      console.log(this.state.files);
-   }
-
    removeFile = index => {
       let files = [...this.state.files];
       files.splice(index, 1);
@@ -55,8 +51,7 @@ export default class Upload extends Component {
          data.append('file', file);
       });
 
-      axios.post(url, data).then(response => {
-         console.log(response);
+      Axios.post(url, data).then(response => {
          this.removeAllFiles();
       });
    }

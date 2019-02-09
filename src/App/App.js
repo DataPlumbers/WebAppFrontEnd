@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
+
 import './App.scss';
 
 import NavBar from '../NavBar/NavBar';
@@ -11,32 +11,49 @@ import SetList from '../SetList/SetList';
 import Upload from '../Upload/Upload';
 import Classify from '../Classify/Classify';
 
-const darkTheme = createMuiTheme({
-   palette: {
-     type: 'dark',
-   },
- });
+const isAuthenticated = () => {
+   return window.localStorage.length > 0 &&
+      window.localStorage.getItem('loggedInUser') !== null;
+}
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+   return (
+     <Route
+       {...rest}
+       render={props =>
+         isAuthenticated() ? (
+           <Component {...props} />
+         ) : (
+           <Redirect
+             to={{
+               pathname: "/login",
+               state: { from: props.location }
+             }}
+           />
+         )
+       }
+     />
+   );
+ }
 
 class App extends Component {
    render() {
       return (
-         <MuiThemeProvider theme={darkTheme}>
-            <div className="App">
-               <Router>
-                  <>
-                     <NavBar />
-                     <div className="App-body">
-                        <Route exact path="/" component={Home} />
-                        <Route path="/login" component={Login} />
-                        <Route path="/signup" component={Signup} />
-                        <Route path="/datasets" component={SetList} />
-                        <Route path="/upload" component={Upload} />
-                        <Route path="/classify" component={Classify} />
-                     </div>
-                  </>
-               </Router>
-            </div>
-         </MuiThemeProvider>
+         <div className="App"> 
+            <Router>
+               <>
+                  <NavBar />
+                  <div className="App-body">
+                     <PrivateRoute exact path="/" component={Home} />
+                     <Route path="/login" component={Login} />
+                     <Route path="/signup" component={Signup} />
+                     <PrivateRoute path="/datasets" component={SetList} />
+                     <PrivateRoute path="/upload" component={Upload} />
+                     <PrivateRoute path="/classify" component={Classify} />
+                  </div>
+               </>
+            </Router>
+         </div>
       );
    }
 }
