@@ -21,7 +21,6 @@ test('isFilesListEmpty', () => {
 
    instance.setState({files: files});
    expect(instance.isFilesListEmpty()).toBeFalsy();
-
    instance.setState({files: []});
    expect(instance.isFilesListEmpty()).toBeTruthy();
 });
@@ -38,7 +37,6 @@ test('removeFile', () => {
    instance.removeFile(0);
    expect(instance.state.files).toEqual([]);
 });
-
 
 test('removeAllFiles', () => {
    let files = [{size: 1000000}, {size: 5000}];

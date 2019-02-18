@@ -23,21 +23,21 @@ export default class Upload extends Component {
 
       currentFiles = currentFiles.concat(filteredNewFiles);
       this.setState({files: currentFiles});
-   }
+   };
 
    filterByFileSize = (files, maxSize) => {
       return files.filter(file => (file.size <= maxSize));
-   }
+   };
 
    isFilesListEmpty = () => {
       return this.state.files.length === 0;
-   }
+   };
 
    removeFile = index => {
       let files = [...this.state.files];
       files.splice(index, 1);
       this.setState({files: files});
-   }
+   };
 
    removeAllFiles() {
       this.setState({files: []});
@@ -54,7 +54,7 @@ export default class Upload extends Component {
       Axios.post(url, data).then(response => {
          this.removeAllFiles();
       });
-   }
+   };
 
    render() {
       return (

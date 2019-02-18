@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Paper, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
 import FileItem from './FileItem'
 
-const labels = ["Filename", "Size", "Type", ""];
+const labels = ["Filename", "Size", "Type"];
 
 export default class FilesList extends Component {
 
@@ -24,7 +24,7 @@ export default class FilesList extends Component {
             })}
          </>
       );
-   }
+   };
 
    render() {
       return (

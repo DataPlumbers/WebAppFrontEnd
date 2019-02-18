@@ -13,14 +13,14 @@ export default class FileItem extends Component {
 
    removeFile = () => {
       this.props.onRemove(this.state.index);
-   }
+   };
 
    bytesToSize(bytes) {
       const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
       if (bytes === 0) return '0 Byte';
       let i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
       return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-   };
+   }
 
    componentDidMount() {
       const index = this.props.index;
@@ -34,7 +34,7 @@ export default class FileItem extends Component {
       return ids.map(id => {
          return <TableCell key={id}>{this.state[id]}</TableCell>;
       });
-   }
+   };
    
    render() {
       return (

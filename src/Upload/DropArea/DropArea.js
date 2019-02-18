@@ -5,7 +5,7 @@ export default class DropArea extends Component {
 
    handleChange = event => {
       this.props.onDrop(event.target.files);
-   }
+   };
 
    render() {
       return (
