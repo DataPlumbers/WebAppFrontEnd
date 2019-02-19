@@ -16,6 +16,13 @@ export default class Upload extends Component {
       files: []
    };
 
+   componentDidMount() {
+      // Restore files state for navigating back to Upload.js view
+      if (this.props.location.state) {
+         this.setState({files: this.props.location.state.files}); 
+      }
+   }
+
    handleDrop = files => {
       const newFiles = Array.from(files);
       const filteredNewFiles = [...this.filterByFileSize(newFiles, MAX_FILE_SIZE)];

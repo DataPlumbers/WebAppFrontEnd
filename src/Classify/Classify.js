@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
-import { IconButton, TextField, FormGroup } from '@material-ui/core/';
+import { Icon, IconButton, TextField, FormGroup } from '@material-ui/core/';
 import { Add } from '@material-ui/icons/';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import PropertiesList from './PropertiesList';
 import './Classify.scss';
@@ -35,6 +36,7 @@ export default class Classify extends Component {
       this.setState({ [event.target.name]: event.target.value });
    };
 
+   // sends the dataset files and classifcation ontology to the backend
    classify = () => {
       const url = "http://127.0.0.1:8000/upload";
       const data = new FormData();
@@ -51,22 +53,44 @@ export default class Classify extends Component {
       });
    };
 
+   // check if user provided dataset files and classification ontology
+   canClassify() {
+      return this.state.category && this.state.properties.length > 0 && this.props.location.state.files.length > 0;
+   };
+
    render() {
       return (
          <>
             <Grid justify="space-around" alignItems="center" direction="row" container>
                <Grid item>
-                  <h3>Classify Dataset</h3>
+                  <Grid alignItems="center" direction="row" container>
+                     <Grid item>
+                        <IconButton color="inherit" 
+                           disableRipple
+                           component={(props) => <Link to={{
+                              pathname: "/upload",
+                              state: {files: this.props.location.state.files}
+                              }} {...props}/>}>
+                           <Icon>chevron_left</Icon>
+                        </IconButton>
+                     </Grid>
+                     <Grid item>
+                        <h3>Classify Dataset</h3>
+                     </Grid>
+                  </Grid>
                </Grid>
                <Grid item>
-                  <Button variant="contained" color="primary" onClick={this.classify}>
+                  <Button variant="contained" 
+                     color="primary" 
+                     disabled={!this.canClassify()}
+                     onClick={this.classify}>
                      Classify
                   </Button>
                </Grid>
             </Grid>
             <div className="classify content-body">
                <FormGroup>
-                  <FormGroup row={true}>
+                  <FormGroup row>
                      <TextField
                         id="classification-category"
                         name="category"
@@ -74,12 +98,12 @@ export default class Classify extends Component {
                         value={this.state.category}
                         onChange={this.handleChange}
                         type="search"
-                        autoFocus={true}
-                        required={true}
+                        autoFocus
+                        required
                         margin="normal"
                      />
                   </FormGroup>
-                  <FormGroup row={true}>
+                  <FormGroup row>
                      <Grid container alignItems="center">
                         <Grid item>
                            <TextField
@@ -88,11 +112,12 @@ export default class Classify extends Component {
                               label="Property"
                               value={this.state.property}
                               onChange={this.handleChange}
+                              required
                               margin="normal"
                            />
                         </Grid>
                         <Grid item>
-                           <IconButton onClick={this.addProperty} aria-label="Add">
+                           <IconButton onClick={this.addProperty} aria-label="Add" disabled={!this.state.property}>
                               <Add />
                            </IconButton>
                         </Grid>
