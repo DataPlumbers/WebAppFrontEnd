@@ -2,22 +2,22 @@
 .upload {
 
    &.content-body {
+      background: rgb(235, 233, 233);
       width: 40vw;
       min-width: 600px;
    }
 }
 
 .files-list-body {
-   margin: 50px 0 0 0;
+   margin: 50px 0;
 
-   &.blah {
-      box-shadow: none;
+   &.content-body {
+      padding: 0;
    }
 }
 
 // DropArea scss
 .droparea.container {
-
    width: 100%;
    min-height: 400px;
    border: 2px solid white;
