@@ -17,9 +17,10 @@ export default class Classify extends Component {
    };
 
    addProperty = () => {
-      if (this.state.property) {
-         let newPropertiesList = this.state.properties.slice();
-         newPropertiesList.push(this.state.property);
+      const newProperty = this.state.property;
+      if (newProperty) {
+         let newPropertiesList = [...this.state.properties, newProperty];
+         newPropertiesList = [...new Set(newPropertiesList)];
          this.setState({properties: newPropertiesList, property: ""});
       }
    };
