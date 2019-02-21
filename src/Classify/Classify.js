@@ -49,6 +49,7 @@ export default class Classify extends Component {
       data.append('category', this.state.category); // category name (ex. "Review")
       data.append('properties', this.state.properties); // list of headers for classification (ex. ['author', 'comment', 'date'])
 
+      this.props.history.push('/datasets');
       Axios.post(url, data).then(response => {
          // render loading while processing uplaod
          // render next view
