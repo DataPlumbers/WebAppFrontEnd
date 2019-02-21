@@ -50,7 +50,18 @@ export default class Classify extends Component {
       data.append('properties', this.state.properties); // list of headers for classification (ex. ['author', 'comment', 'date'])
 
       Axios.post(url, data).then(response => {
-         
+         // render loading while processing uplaod
+         // render next view
+      });
+   };
+
+   removeCategory = () => {
+      const url = "http://127.0.0.1:8000/category/remove";
+      const data = new FormData();
+
+      data.append('category', this.state.category);
+      Axios.post(url, data).then(response => {
+         // reset input fields
       });
    };
 
