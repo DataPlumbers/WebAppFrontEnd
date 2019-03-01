@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import { Link } from 'react-router-dom';
+
 import DropArea from './DropArea/DropArea';
 import FilesList from './FilesList/FilesList';
-
 import './Upload.scss';
 
 const ONE_MB_IN_BYTES = 1048576; // 1 MB in bytes
@@ -15,6 +15,13 @@ export default class Upload extends Component {
       selectedFile: null,
       files: []
    };
+
+   componentDidMount() {
+      // Restore files state for navigating back to Upload.js view
+      if (this.props.location.state) {
+         this.setState({files: this.props.location.state.files}); 
+      }
+   }
 
    handleDrop = files => {
       const newFiles = Array.from(files);
@@ -43,27 +50,24 @@ export default class Upload extends Component {
       this.setState({files: []});
    }
 
-   uploadFiles = () => {
-      const url = "http://127.0.0.1:8000/upload";
-      const data = new FormData();
-      
-      this.state.files.forEach(file => {
-         data.append('file', file);
-      });
-
-      Axios.post(url, data).then(response => {
-         this.removeAllFiles();
-      });
-   };
-
    render() {
       return (
          <>
-            <Grid justify="space-around" alignContent="center" alignItems="center" direction="row" container={true}>
-               <h3>Upload Datasets</h3>
-               <Button variant="contained" color="default" onClick={this.uploadFiles} disabled={this.isFilesListEmpty()}>
-                  Next
-               </Button>
+            <Grid justify="space-around" alignItems="center" direction="row" container>
+               <Grid item>
+                  <h3>Upload Datasets</h3>
+               </Grid>
+               <Grid item>
+                  <Button variant="contained" 
+                     color="default" 
+                     disabled={this.isFilesListEmpty()} 
+                     component={(props) => <Link to={{
+                        pathname: "/classify",
+                        state: {files: this.state.files}
+                     }} {...props}/>}>
+                     Next
+                  </Button>
+               </Grid>
             </Grid>
             <div className="upload content-body">
                <DropArea onDrop={this.handleDrop} />
