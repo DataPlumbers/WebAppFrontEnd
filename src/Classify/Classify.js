@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
 import PropertiesList from './PropertiesList';
+import Autocomplete from './Autocomplete';
 import './Classify.scss';
 
 export default class Classify extends Component {
@@ -22,6 +23,15 @@ export default class Classify extends Component {
          let newPropertiesList = [...this.state.properties, newProperty];
          newPropertiesList = [...new Set(newPropertiesList)];
          this.setState({properties: newPropertiesList, property: ""});
+      }
+   };
+
+   onSelectCategory = category => {
+      if (category) {
+         this.setState({
+            category: category.label,
+            properties: category.value
+         });
       }
    };
 
@@ -55,6 +65,27 @@ export default class Classify extends Component {
          // render next view
       });
    };
+
+   /**
+    * Returns a list of categories.
+    * Example return: [
+    *    {label: 'Review', value: ['author', 'comment', 'date']},
+    *    {label: 'Employee', value: ['fullname', 'occupation', 'address', 'id']}
+    * ]
+    */
+   getCategories = async name => {
+      const url = "http://127.0.0.1:8000/category/get";
+      const data = new FormData();
+      let result = [];
+
+      data.append('category_name', name); 
+      const response = await Axios.get(url, data);
+
+      if (response.data.ok) {
+         result = response.data.categories;
+      }
+      return result;
+   }
 
    removeCategory = () => {
       const url = "http://127.0.0.1:8000/category/remove";
@@ -104,6 +135,9 @@ export default class Classify extends Component {
             <div className="classify content-body">
                <FormGroup>
                   <FormGroup row>
+                     <Autocomplete filterOptions={this.getCategories} onSelect={this.onSelectCategory} placeholder="Search a category" />
+                  </FormGroup>
+                  <FormGroup row>
                      <TextField
                         id="classification-category"
                         name="category"
@@ -111,7 +145,6 @@ export default class Classify extends Component {
                         value={this.state.category}
                         onChange={this.handleChange}
                         type="search"
-                        autoFocus
                         required
                         margin="normal"
                      />
