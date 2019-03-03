@@ -68,9 +68,10 @@ export default class Classify extends Component {
 
    /**
     * Returns a list of categories.
+    * name - if category name contains this string within its name, return those
     * Example return: [
-    *    {label: 'Review', value: ['author', 'comment', 'date']},
-    *    {label: 'Employee', value: ['fullname', 'occupation', 'address', 'id']}
+    *    {label: 'Reporter', value: ['fullname', 'role', 'address', 'id']},
+    *    {label: 'Review', value: ['author', 'comment', 'date']}
     * ]
     */
    getCategories = async name => {
