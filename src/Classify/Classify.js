@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Icon, IconButton, TextField, FormGroup } from '@material-ui/core/';
 import { Add } from '@material-ui/icons/';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import PropertiesList from './PropertiesList';
 import Autocomplete from './Autocomplete';
@@ -14,7 +15,8 @@ export default class Classify extends Component {
    state = {
       category: "",
       property: "",
-      properties: []
+      properties: [],
+      selectedCategory: null
    };
 
    addProperty = () => {
@@ -30,7 +32,8 @@ export default class Classify extends Component {
       if (category) {
          this.setState({
             category: category.label,
-            properties: category.value
+            properties: category.value,
+            selectedCategory: category
          });
       }
    };
@@ -88,13 +91,26 @@ export default class Classify extends Component {
       return result;
    }
 
-   removeCategory = () => {
+   removeCategory = async () => {
       const url = "http://127.0.0.1:8000/category/remove";
       const data = new FormData();
 
-      data.append('category', this.state.category);
-      Axios.post(url, data).then(response => {
-         // reset input fields
+      if (this.state.selectedCategory) {
+         const categoryName = this.state.selectedCategory.label;
+         data.append('category_name', categoryName);
+         const response = await Axios.post(url, data);
+         if (response.data.ok) {
+            this.resetForm();
+         }
+      }
+   };
+
+   resetForm = () => {
+      this.setState({
+         selectedCategory: null,
+         category: "",
+         property: "",
+         properties: []
       });
    };
 
@@ -136,7 +152,10 @@ export default class Classify extends Component {
             <div className="classify content-body">
                <FormGroup>
                   <FormGroup row>
-                     <Autocomplete filterOptions={this.getCategories} onSelect={this.onSelectCategory} placeholder="Search a category" />
+                     <Autocomplete value={this.state.selectedCategory} filterOptions={this.getCategories} onSelect={this.onSelectCategory} placeholder="Search a category" />
+                     <Button color="secondary" onClick={this.removeCategory} disabled={this.state.selectedCategory == null}>
+                        <DeleteIcon fontSize="small" />
+                     </Button>
                   </FormGroup>
                   <FormGroup row>
                      <TextField
