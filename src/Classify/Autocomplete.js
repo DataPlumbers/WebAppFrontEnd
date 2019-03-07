@@ -186,10 +186,10 @@ class IntegrationReactSelect extends React.Component {
       });
    };
    
-   promiseOptions = inputValue =>
+   promiseOptions = () =>
       new Promise(resolve => {
          setTimeout(() => {
-         resolve(this.props.filterOptions(inputValue));
+            resolve(this.props.filterOptions(this.state.inputValue));
          }, 1000);
    });
 
