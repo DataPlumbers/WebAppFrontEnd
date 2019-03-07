@@ -115,8 +115,12 @@ export default class Classify extends Component {
    };
 
    // check if user provided dataset files and classification ontology
-   canClassify() {
+   canClassify = () => {
       return this.state.category && this.state.properties.length > 0 && this.props.location.state.files.length > 0;
+   };
+
+   canRemoveCategory = () => {
+      return (this.state.selectedCategory != null) && (this.state.selectedCategory.label === this.state.category);
    };
 
    render() {
@@ -153,7 +157,7 @@ export default class Classify extends Component {
                <FormGroup>
                   <FormGroup row>
                      <Autocomplete value={this.state.selectedCategory} filterOptions={this.getCategories} onSelect={this.onSelectCategory} placeholder="Search a category" />
-                     <Button color="secondary" onClick={this.removeCategory} disabled={this.state.selectedCategory == null}>
+                     <Button color="secondary" onClick={this.removeCategory} disabled={!this.canRemoveCategory()}>
                         <DeleteIcon fontSize="small" />
                      </Button>
                   </FormGroup>
