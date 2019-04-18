@@ -79,12 +79,14 @@ export default class Classify extends Component {
     */
    getCategories = async name => {
       const url = "http://127.0.0.1:8000/category/get";
-      const data = new FormData();
       let result = [];
+      const config = {
+         params: {
+            'category_name': name
+         }
+      };
 
-      data.append('category_name', name); 
-      const response = await Axios.get(url, data);
-
+      const response = await Axios.get(url, config);
       if (response.data.ok) {
          result = response.data.categories;
       }
