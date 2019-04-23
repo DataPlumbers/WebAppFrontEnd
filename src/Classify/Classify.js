@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Icon, IconButton, TextField, FormGroup } from '@material-ui/core/';
 import { Add } from '@material-ui/icons/';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 import PropertiesList from './PropertiesList';
+import Autocomplete from './Autocomplete';
 import './Classify.scss';
 
 export default class Classify extends Component {
    state = {
       category: "",
       property: "",
-      properties: []
+      properties: [],
+      selectedCategory: null
    };
 
    addProperty = () => {
@@ -22,6 +25,16 @@ export default class Classify extends Component {
          let newPropertiesList = [...this.state.properties, newProperty];
          newPropertiesList = [...new Set(newPropertiesList)];
          this.setState({properties: newPropertiesList, property: ""});
+      }
+   };
+
+   onSelectCategory = category => {
+      if (category) {
+         this.setState({
+            category: category.label,
+            properties: category.value,
+            selectedCategory: category
+         });
       }
    };
 
@@ -56,19 +69,60 @@ export default class Classify extends Component {
       });
    };
 
-   removeCategory = () => {
+   /**
+    * Returns a list of categories.
+    * name - if category name contains this string within its name, return those
+    * Example return: [
+    *    {label: 'Reporter', value: ['fullname', 'role', 'address', 'id']},
+    *    {label: 'Review', value: ['author', 'comment', 'date']}
+    * ]
+    */
+   getCategories = async name => {
+      const url = "http://127.0.0.1:8000/category/get";
+      let result = [];
+      const config = {
+         params: {
+            'category_name': name
+         }
+      };
+
+      const response = await Axios.get(url, config);
+      if (response.data.ok) {
+         result = response.data.categories;
+      }
+      return result;
+   }
+
+   removeCategory = async () => {
       const url = "http://127.0.0.1:8000/category/remove";
       const data = new FormData();
 
-      data.append('category', this.state.category);
-      Axios.post(url, data).then(response => {
-         // reset input fields
+      if (this.state.selectedCategory) {
+         const categoryName = this.state.selectedCategory.label;
+         data.append('category_name', categoryName);
+         const response = await Axios.post(url, data);
+         if (response.data.ok) {
+            this.resetForm();
+         }
+      }
+   };
+
+   resetForm = () => {
+      this.setState({
+         selectedCategory: null,
+         category: "",
+         property: "",
+         properties: []
       });
    };
 
    // check if user provided dataset files and classification ontology
-   canClassify() {
+   canClassify = () => {
       return this.state.category && this.state.properties.length > 0 && this.props.location.state.files.length > 0;
+   };
+
+   canRemoveCategory = () => {
+      return (this.state.selectedCategory != null) && (this.state.selectedCategory.label === this.state.category);
    };
 
    render() {
@@ -104,6 +158,12 @@ export default class Classify extends Component {
             <div className="classify content-body">
                <FormGroup>
                   <FormGroup row>
+                     <Autocomplete value={this.state.selectedCategory} filterOptions={this.getCategories} onSelect={this.onSelectCategory} placeholder="Search a category" />
+                     <Button color="secondary" onClick={this.removeCategory} disabled={!this.canRemoveCategory()}>
+                        <DeleteIcon fontSize="small" />
+                     </Button>
+                  </FormGroup>
+                  <FormGroup row>
                      <TextField
                         id="classification-category"
                         name="category"
@@ -111,7 +171,6 @@ export default class Classify extends Component {
                         value={this.state.category}
                         onChange={this.handleChange}
                         type="search"
-                        autoFocus
                         required
                         margin="normal"
                      />
