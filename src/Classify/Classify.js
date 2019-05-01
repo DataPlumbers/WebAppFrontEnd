@@ -11,6 +11,24 @@ import PropertiesList from './PropertiesList';
 import Autocomplete from './Autocomplete';
 import './Classify.scss';
 
+// temporary dummy data
+const results = {
+   Review: {
+      name: {
+            "eCommerce.csv": ["name", "Consumer_name", "Review_name"],
+            "data.csv": ["name"]
+      },
+      summary: {
+            "eCommerce.csv": [""],
+            "data.csv": ["rev_summary", "sum_date"]
+      },
+      id: {
+            "eCommerce.csv": ["rev_id", "user_id", "product_id"],
+            "data.csv": ["id", "user_id"]
+      }
+   }
+};
+
 export default class Classify extends Component {
    state = {
       category: "",
@@ -62,10 +80,15 @@ export default class Classify extends Component {
       data.append('category', this.state.category); // category name (ex. "Review")
       data.append('properties', this.state.properties); // list of headers for classification (ex. ['author', 'comment', 'date'])
 
-      this.props.history.push('/datasets');
       Axios.post(url, data).then(response => {
          // render loading while processing uplaod
          // render next view
+         if (response.data.ok) {
+            this.props.history.push({
+               pathname: '/classifications',
+               state: {results: response.data.results}
+            });
+         }
       });
    };
 
