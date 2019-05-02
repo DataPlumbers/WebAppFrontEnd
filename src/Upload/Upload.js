@@ -9,6 +9,7 @@ import './Upload.scss';
 
 const ONE_MB_IN_BYTES = 1048576; // 1 MB in bytes
 const MAX_FILE_SIZE = ONE_MB_IN_BYTES * 10; // 10 MB
+const MIN_FILE_SIZE = 0; // 0 bytes
 
 export default class Upload extends Component {
    state = {
@@ -33,7 +34,7 @@ export default class Upload extends Component {
    };
 
    filterByFileSize = (files, maxSize) => {
-      return files.filter(file => (file.size <= maxSize));
+      return files.filter(file => (file.size > MIN_FILE_SIZE && file.size <= maxSize));
    };
 
    isFilesListEmpty = () => {

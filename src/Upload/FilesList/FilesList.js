@@ -10,8 +10,9 @@ export default class FilesList extends Component {
       let files = this.props.files;
 
       return files.map((file, index) => {
+         const key = file.name + index;
          return (
-            <FileItem key={index} index={index} file={file} onRemove={this.props.handleRemoveFile} />
+            <FileItem key={key} index={index} file={file} onRemove={this.props.handleRemoveFile} />
          );
       });
    }
