@@ -11,24 +11,6 @@ import PropertiesList from './PropertiesList';
 import Autocomplete from './Autocomplete';
 import './Classify.scss';
 
-// temporary dummy data
-const results = {
-   Review: {
-      name: {
-            "eCommerce.csv": ["name", "Consumer_name", "Review_name"],
-            "data.csv": ["name"]
-      },
-      summary: {
-            "eCommerce.csv": [""],
-            "data.csv": ["rev_summary", "sum_date"]
-      },
-      id: {
-            "eCommerce.csv": ["rev_id", "user_id", "product_id"],
-            "data.csv": ["id", "user_id"]
-      }
-   }
-};
-
 export default class Classify extends Component {
    state = {
       category: "",
