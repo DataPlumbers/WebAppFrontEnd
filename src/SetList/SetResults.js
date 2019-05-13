@@ -2,21 +2,44 @@ import React, { Component } from 'react';
 import { Table, TableCell, TableBody, TableHead, TableRow } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import { CloudDownload } from '@material-ui/icons';
 
 import './SetList.scss';
 
 export default class SetResult extends Component {
    state = {
       title: "",
-      results: null
+      results: null,
+      download: {
+         filename: "",
+         rhef: ""
+      }
    }
 
    componentWillMount() {
+      const jsonData = this.props.location.state.data;
+      const download = {
+         filename: this.generateDownloadFilename(jsonData),
+         rhef: this.generateDownloadHref(jsonData)
+      };
       this.setState({
          title: this.props.location.state.data.category, 
-         results: this.props.location.state.data.data
+         results: this.props.location.state.data.data,
+         download: download
       });
    }
+
+   generateDownloadFilename = (jsonData) => {
+      return jsonData.category + "_export.json";
+   };
+
+   generateDownloadHref = (jsonOata) => {
+      const contentType = "application/json;charset=utf-8;";
+      const href = 'data:' + contentType + ',' + encodeURIComponent(JSON.stringify(jsonOata));
+      return href;
+   };
 
    renderClassifications = (classification) => {
       const properties = Object.keys(classification);
@@ -62,13 +85,28 @@ export default class SetResult extends Component {
    };
 
    render() {
-      return(
+      return (
          <>
             <div className="setresults content-body">
-               <Typography align={'center'} gutterBottom={true} variant="h4">
-                  {this.state.title}
-               </Typography>
-               {this.renderClassifications(this.state.results)}
+            <Grid container justify="center" direction="column">
+               <Grid item container justify="space-between" alignItems="center" alignContent="center">
+                  <Typography align={'center'} gutterBottom variant="h4">
+                     {this.state.title}
+                  </Typography>
+                  <Button 
+                     variant="contained" 
+                     color="primary" 
+                     download={this.state.download.filename} 
+                     href={this.state.download.rhef} 
+                     target="_blank">
+                     <CloudDownload style={{marginRight: 10}} />
+                     Export
+                  </Button>
+               </Grid>
+               <Grid item>
+                  {this.renderClassifications(this.state.results)}
+               </Grid>
+            </Grid>   
             </div>
          </>
       );
