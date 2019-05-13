@@ -21,7 +21,6 @@ export default class MenuList extends Component {
    render() {
       const open = Boolean(this.state.anchorEl);
       const links = [
-         {title: "View Datasets", url: "datasets"},
          {title: "Upload Datasets", url: "upload"}
       ]
       
