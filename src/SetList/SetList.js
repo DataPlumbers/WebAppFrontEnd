@@ -9,28 +9,58 @@ import Typography from '@material-ui/core/Typography';
 
 export default class SetList extends Component {
    state = {
-      classifiedDatasets: [{ id: 1, category: "Reviews", total: 100}],
+      results: [],
       others: [
-         { id: 2, category: "Products", total: 45}, 
-         { id: 3, category: "Purchases", total: 20},
-         { id: 4, category: "Customers", total: 15}
+         //{ id: 2, category: "Products", total: 45}, 
+         //{ id: 3, category: "Purchases", total: 20},
+         //{ id: 4, category: "Customers", total: 15}
       ]
    }
 
-   renderListItems = (datasets) => {
-      return datasets.map(dataset => {
-         const secondary = dataset.total ? dataset.total + " datasets" : null;
-         return (<ListItem key={dataset.id} divider={true} button>
-            <ListItemIcon>
-               <FolderIcon />
-            </ListItemIcon>
-            <ListItemText
-               primary={dataset.category}
-               secondary={secondary}
-            />
-         </ListItem>);
-      })
+   componentDidMount() {
+      this.getClassificationResults();
    }
+
+   getClassificationResults = () => {
+      const data = this.props.location.state.results; // classification results passed in from Classify view
+      let categories = Object.keys(data);
+      const results = categories.map(category => {
+         return {category: category, data: data[category]};
+      });
+      this.setState({
+         results: results
+      });
+   };
+
+   renderResultsView = (index) => {
+      if (this.state.results.length > 0) {
+         this.props.history.push({
+            pathname: '/results',
+            state: {data: this.state.results[index]}
+         });
+      }
+   };
+
+   renderListItems = (results) => {
+      return results.map((result, index) => {
+         const secondary = result.total ? result.total + " datasets" : null;
+         return (
+            <ListItem 
+               key={result.category}
+               divider={true}
+               onClick={() => this.renderResultsView(index)}
+               button>
+               <ListItemIcon>
+                  <FolderIcon />
+               </ListItemIcon>
+               <ListItemText
+                  primary={result.category}
+                  secondary={secondary}
+               />
+            </ListItem>
+         );
+      })
+   };
 
    render() {
       return (
@@ -43,11 +73,11 @@ export default class SetList extends Component {
                   </Typography>
                   <div>
                   <List>
-                     {this.renderListItems(this.state.classifiedDatasets)}
+                     {this.renderListItems(this.state.results)}
                   </List>
                   </div>
                </Grid>
-               <Grid className="classification-grid">
+               {this.state.others.length > 0 ? <Grid className="classification-grid">
                   <Typography align={'left'} gutterBottom={true} variant="h6">
                      Other Classifications 
                   </Typography>
@@ -56,7 +86,7 @@ export default class SetList extends Component {
                      {this.renderListItems(this.state.others)}
                   </List>
                   </div>
-               </Grid>
+               </Grid> : null}
             </div>
          </>
       );

@@ -10,6 +10,7 @@ import Signup from '../Users/Signup';
 import SetList from '../SetList/SetList';
 import Upload from '../Upload/Upload';
 import Classify from '../Classify/Classify';
+import SetResults from '../SetList/SetResults';
 
 const isAuthenticated = () => {
    return window.localStorage.length > 0 &&
@@ -47,9 +48,10 @@ class App extends Component {
                      <PrivateRoute exact path="/" component={Home} />
                      <Route path="/login" component={Login} />
                      <Route path="/signup" component={Signup} />
-                     <PrivateRoute path="/datasets" component={SetList} />
+                     <PrivateRoute path="/classifications" component={SetList} />
                      <PrivateRoute path="/upload" component={Upload} />
                      <PrivateRoute path="/classify" component={Classify} />
+                     <PrivateRoute path="/results" component={SetResults} />
                   </div>
                </>
             </Router>
