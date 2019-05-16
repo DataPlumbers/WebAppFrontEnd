@@ -20,7 +20,7 @@ export default class Upload extends Component {
    componentDidMount() {
       // Restore files state for navigating back to Upload.js view
       if (this.props.location.state) {
-         this.setState({files: this.props.location.state.files}); 
+         this.setState({ files: this.props.location.state.files });
       }
    }
 
@@ -30,7 +30,7 @@ export default class Upload extends Component {
       let currentFiles = this.state.files;
 
       currentFiles = currentFiles.concat(filteredNewFiles);
-      this.setState({files: currentFiles});
+      this.setState({ files: currentFiles });
    };
 
    filterByFileSize = (files, maxSize) => {
@@ -44,37 +44,42 @@ export default class Upload extends Component {
    removeFile = index => {
       let files = [...this.state.files];
       files.splice(index, 1);
-      this.setState({files: files});
+      this.setState({ files: files });
    };
 
    removeAllFiles() {
-      this.setState({files: []});
+      this.setState({ files: [] });
    }
 
    render() {
       return (
          <>
-            <Grid justify="space-around" alignItems="center" direction="row" container>
-               <Grid item>
-                  <h3>Upload Datasets</h3>
-               </Grid>
-               <Grid item>
-                  <Button variant="contained" 
-                     color="default" 
-                     disabled={this.isFilesListEmpty()} 
-                     component={(props) => <Link to={{
-                        pathname: "/classify",
-                        state: {files: this.state.files}
-                     }} {...props}/>}>
-                     Next
+            <div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
+               <Grid justify="space-around" alignItems="center" direction="row" container>
+                  <Grid item>
+                     <h3>Upload Datasets</h3>
+                  </Grid>
+                  <Grid item>
+                     <Button variant="contained"
+                        color="default"
+                        disabled={this.isFilesListEmpty()}
+                        component={(props) => <Link to={{
+                           pathname: "/classify",
+                           state: { files: this.state.files }
+                        }} {...props} />}>
+                        Next
                   </Button>
+                  </Grid>
                </Grid>
-            </Grid>
-            <div className="upload content-body">
-               <DropArea onDrop={this.handleDrop} />
-            </div>
-            <div className="files-list-body content-body">
-               <FilesList files={this.state.files} uploadFile={this.uploadFile} handleRemoveFile={this.removeFile} />
+
+               <div style={{ display: 'flex', flex: 1, flexDirection: 'column', minWidth: '60vw' }}>
+                  <div className="upload content-body">
+                     <DropArea onDrop={this.handleDrop} />
+                  </div>
+                  <div className="files-list-body content-body">
+                     <FilesList files={this.state.files} uploadFile={this.uploadFile} handleRemoveFile={this.removeFile} />
+                  </div>
+               </div>
             </div>
          </>
       );

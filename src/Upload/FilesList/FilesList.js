@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Paper, Table, TableBody, TableHead, TableRow, TableCell } from '@material-ui/core';
 import FileItem from './FileItem'
 
-const labels = ["Filename", "Size", "Type"];
+const labels = ["Filename", "Size", "Type", ""];
 
 export default class FilesList extends Component {
 
@@ -20,8 +20,8 @@ export default class FilesList extends Component {
    renderCells = (labels) => {
       return (
          <>
-            {labels.map(label => {
-               return <TableCell key={label}>{label}</TableCell>
+            {labels.map((label, idx) => {
+               return <TableCell key={label} style={{ flex: idx !== 0 ? 1 : 4 }}>{label}</TableCell>
             })}
          </>
       );
@@ -30,22 +30,22 @@ export default class FilesList extends Component {
    render() {
       return (
          <Paper className="files-list">
-               <Table>
-                  <colgroup>
-                     <col style={{width:'55%'}}/>
-                     <col style={{width:'20%'}}/>
-                     <col style={{width:'20%'}}/>
-                     <col style={{width:'5%'}}/>
-                  </colgroup>   
-                  <TableHead>
-                     <TableRow>
-                        {this.renderCells(labels)}
-                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                     {this.props.files ? this.renderFileItems() : null}
-                  </TableBody>
-               </Table>
+            <Table>
+               <colgroup>
+                  <col style={{ width: '55%' }} />
+                  <col style={{ width: '20%' }} />
+                  <col style={{ width: '20%' }} />
+                  <col style={{ width: '5%' }} />
+               </colgroup>
+               <TableHead>
+                  <TableRow>
+                     {this.renderCells(labels)}
+                  </TableRow>
+               </TableHead>
+               <TableBody>
+                  {this.props.files ? this.renderFileItems() : null}
+               </TableBody>
+            </Table>
          </Paper>
       );
    }
