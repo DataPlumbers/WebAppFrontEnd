@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import './App.scss';
 
 import NavBar from '../NavBar/NavBar';
-import Home from '../Home/Home';
 import Login from '../Users/Login';
 import Signup from '../Users/Signup';
 import SetList from '../SetList/SetList';
@@ -45,7 +44,7 @@ class App extends Component {
                <>
                   <NavBar />
                   <div className="App-body">
-                     <PrivateRoute exact path="/" component={Home} />
+                     <PrivateRoute exact path="/" component={Upload} />
                      <Route path="/login" component={Login} />
                      <Route path="/signup" component={Signup} />
                      <PrivateRoute path="/classifications" component={SetList} />
