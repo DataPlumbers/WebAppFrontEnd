@@ -40,7 +40,8 @@ export default class MenuList extends Component {
             key={link.url} 
             selected={false} 
             onClick={this.toggleDrawer} 
-            component="a" href={link.url}
+            component="a" 
+            href={link.url}
             target="_blank">
             {this.renderMenuItems(link)}
          </MenuItem>
@@ -72,8 +73,8 @@ export default class MenuList extends Component {
                <div
                   tabIndex={0}
                   role="button"
-                  onClick={ this.toggleDrawer }
-                  onKeyDown={ this.toggleDrawer }
+                  onClick={this.toggleDrawer}
+                  onKeyDown={this.toggleDrawer}
                >
                   <List style={{width: 250}}>
                      {this.renderMenuList(links)}
