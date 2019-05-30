@@ -32,20 +32,31 @@ test('handPropertiesListChange', () => {
 });
 
 
-const fakeEventProperty = {
-    "target":{"name":"property", "value":"prop1"}
+const mockEventProperty = {
+    "target":{"name":"property", "value":"prop1", "label":"Property"}
 };
 
-const fakeEventCategory = {
-    "target":{"name":"category", "value":"cat1"}
+const mockEventCategory = {
+    "target":{"name":"category", "value":"cat1", "label":"Category"}
 };
 
 test('handleChange', () =>{
     const wrapper = shallow(<Classify />);
     const instance = wrapper.instance();
 
-    instance.handleChange(fakeEventCategory);
+    instance.handleChange(mockEventCategory);
     expect(instance.state.category).toEqual("cat1");
-    instance.handleChange(fakeEventProperty);
+    instance.handleChange(mockEventProperty);
     expect(instance.state.property).toEqual("prop1");
+});
+
+test('onSelectCategory', () =>{
+    const wrapper = shallow(<Classify />);
+    const instance = wrapper.instance();
+    instance.state.category = "category";
+    instance.state.selectedCategory = null;
+
+    instance.onSelectCategory(mockEventCategory.target.name);
+    expect(instance.state.selectedCategory).toEqual("category");
+
 });
