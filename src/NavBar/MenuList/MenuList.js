@@ -59,7 +59,7 @@ export default class MenuList extends Component {
 
    render() {
       const links = [
-         {title: "Data Classifier", url: "upload", icon: <Assessment />, internal: true},
+         {title: "Data Classifier", url: "", icon: <Assessment />, internal: true},
          {title: "Help", url: "https://dataplumbers123.gitbook.io/data-classifier/", icon: <Info />, internal: false}
       ];
       
