@@ -19,16 +19,20 @@ export default class SetResult extends Component {
    }
 
    componentWillMount() {
-      const jsonData = this.props.location.state.data;
-      const download = {
-         filename: this.generateDownloadFilename(jsonData),
-         rhef: this.generateDownloadHref(jsonData)
-      };
-      this.setState({
-         title: this.props.location.state.data.category, 
-         results: this.props.location.state.data.data,
-         download: download
-      });
+      if (this.props.location.state) {
+         const jsonData = this.props.location.state.data;
+         const download = {
+            filename: this.generateDownloadFilename(jsonData),
+            rhef: this.generateDownloadHref(jsonData)
+         };
+         this.setState({
+            title: this.props.location.state.data.category, 
+            results: this.props.location.state.data.data,
+            download: download
+         });
+      } else {
+         this.props.history.push('/');
+      }
    }
 
    generateDownloadFilename = (jsonData) => {
@@ -104,7 +108,7 @@ export default class SetResult extends Component {
                   </Button>
                </Grid>
                <Grid item>
-                  {this.renderClassifications(this.state.results)}
+                  {this.state.results ? this.renderClassifications(this.state.results) : null}
                </Grid>
             </Grid>   
             </div>

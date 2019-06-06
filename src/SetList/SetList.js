@@ -22,14 +22,18 @@ export default class SetList extends Component {
    }
 
    getClassificationResults = () => {
-      const data = this.props.location.state.results; // classification results passed in from Classify view
-      let categories = Object.keys(data);
-      const results = categories.map(category => {
-         return {category: category, data: data[category]};
-      });
-      this.setState({
-         results: results
-      });
+      if (this.props.location.state) {
+         const data = this.props.location.state.results; // classification results passed in from Classify view
+         let categories = Object.keys(data);
+         const results = categories.map(category => {
+            return {category: category, data: data[category]};
+         });
+         this.setState({
+            results: results
+         });
+      } else {
+         this.props.history.push('/');
+      }
    };
 
    renderResultsView = (index) => {
