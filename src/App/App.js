@@ -48,7 +48,6 @@ class App extends Component {
                      <Route path="/login" component={Login} />
                      <Route path="/signup" component={Signup} />
                      <PrivateRoute path="/classifications" component={SetList} />
-                     <PrivateRoute path="/upload" component={Upload} />
                      <PrivateRoute path="/classify" component={Classify} />
                      <PrivateRoute path="/results" component={SetResults} />
                   </div>

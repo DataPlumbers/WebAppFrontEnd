@@ -130,6 +130,20 @@ export default class Classify extends Component {
       return (this.state.selectedCategory != null) && (this.state.selectedCategory.label === this.state.category);
    };
 
+   renderBackButton = () => {
+      const files = this.props.location.state ? this.props.location.state.files : [];
+      return (
+         <IconButton color="inherit" 
+            disableRipple
+            component={(props) => <Link to={{
+               pathname: "/",
+               state: {files: files}
+               }} {...props}/>}>
+            <Icon>chevron_left</Icon>
+         </IconButton>
+      );
+   };
+
    render() {
       return (
          <>
@@ -137,14 +151,7 @@ export default class Classify extends Component {
                <Grid item>
                   <Grid alignItems="center" direction="row" container>
                      <Grid item>
-                        <IconButton color="inherit" 
-                           disableRipple
-                           component={(props) => <Link to={{
-                              pathname: "/upload",
-                              state: {files: this.props.location.state.files}
-                              }} {...props}/>}>
-                           <Icon>chevron_left</Icon>
-                        </IconButton>
+                        { this.renderBackButton() }
                      </Grid>
                      <Grid item>
                         <h3>Classify Dataset</h3>
