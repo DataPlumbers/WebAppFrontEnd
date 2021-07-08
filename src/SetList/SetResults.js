@@ -41,48 +41,62 @@ export default class SetResult extends Component {
       return href;
    };
 
-   renderClassifications = (classification) => {
+   renderClassification = (classification) => {
       const properties = Object.keys(classification);
       return properties.map((property, index) => {
          const files = Object.keys(classification[property]);
          return (
             <div key={property}>
-               <Typography align={'left'} gutterBottom={true} variant="h6">
-                  {property}
-               </Typography>
+               { this.renderClassificationProperty(property) }
                <Paper key={property + index} className="setresults classification-table">
-                  <Table>
-                     <TableHead>
-                        <TableRow>
-                           <TableCell>
-                              File
-                           </TableCell>
-                           <TableCell>
-                              Headers Classified
-                           </TableCell>
-                        </TableRow>
-                     </TableHead>
-                     <TableBody>
-                        {files.map((file, index) => {
-                           const headers = classification[property][file];
-                           return (
-                              <TableRow key={file + index}>
-                                 <TableCell>
-                                    {file}
-                                 </TableCell>
-                                 <TableCell>
-                                    {headers.join(', ')}
-                                 </TableCell>
-                              </TableRow>
-                           );
-                        })}
-                     </TableBody>
-                  </Table>
+                  { this.renderClassificationTable(files, classification, property) }
                </Paper>
             </div>
          );
       });
    };
+
+   renderClassificationTable(files, classification, property) {
+      return <Table>
+         {this.renderClassificationHeader()}
+         {this.renderClassificationDetails(files, classification, property)}
+      </Table>;
+   }
+
+   renderClassificationDetails(files, classification, property) {
+      return <TableBody>
+         {files.map((file, index) => {
+            const headers = classification[property][file];
+            return (<TableRow key={file + index}>
+               <TableCell>
+                  {file}
+               </TableCell>
+               <TableCell>
+                  {headers.join(', ')}
+               </TableCell>
+            </TableRow>);
+         })}
+      </TableBody>;
+   }
+
+   renderClassificationProperty(property) {
+      return <Typography align={'left'} gutterBottom={true} variant="h6">
+         {property}
+      </Typography>;
+   }
+
+   renderClassificationHeader() {
+      return <TableHead>
+         <TableRow>
+            <TableCell>
+               File
+            </TableCell>
+            <TableCell>
+               Headers Classified
+            </TableCell>
+         </TableRow>
+      </TableHead>;
+   }
 
    render() {
       return (
@@ -104,7 +118,7 @@ export default class SetResult extends Component {
                   </Button>
                </Grid>
                <Grid item>
-                  {this.renderClassifications(this.state.results)}
+                  {this.renderClassification(this.state.results)}
                </Grid>
             </Grid>   
             </div>
